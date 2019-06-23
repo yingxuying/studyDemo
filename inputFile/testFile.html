@@ -6,84 +6,100 @@
     <title>Title</title>
 </head>
 <style>
-    
+
 </style>
 <body>
 
 </body>
 <script>
-    function init() {
-      // @--创建Blob对象实例
-      let content = ['测试1', '测试2', '测试3'];
-      let blob = new Blob(content, { type: 'text/plain' });
-      let newBlob = blob.slice(0, 6, 'text/plain');
-      let content1 = ['<div id="box"><p class="pra">a paragraph</p></div>'];
-      let blob1 = new Blob(content1, { type: 'text/html' });
+  /**
+   * 创建Blob对象，使用FileReader对象读取Blob对象的数据
+   */
+  function initBlob() {
+    // Blob的存在，允许js直接操作二进制数据。Blob对象是一个包含有只读原始数据的类文件对象。Blob对象并不一定是基于JS中的原始形式
+    // Blob对象可以看做是存放二进制数据的容器
+    // @--创建Blob对象实例
+    let content = ['测试1', '测试2', '测试3'];
+    // new Blob(dataArr:Array<any>, opt:{type:string});
+    // 第一个参数：类型数组，包含了要添加到Blob对象中的数据，ArrayBuffer，ArrayBufferView， Blob，或者 DOMString对象。
+    // 第二个参数：类型是对象，设置Blob对象的属性，如MIME类型。
+    let blob = new Blob(content, { type: 'text/plain' });
+    // Blob.slice(start:number, end:number, contentType:string):返回一个新的Blob对象，包含了原Blob对象中指定范围内的数据
+    // 第一个参数：开始索引，默认为0
+    // 第二个参数：截取结束索引（不包括end）
+    // 第三个参数：新Blob的MIME类型，默认为空字符串
+    let newBlob = blob.slice(0, 6, 'text/plain');
+    let content1 = ['<div id="box"><p class="pra">a paragraph</p></div>'];
+    let blob1 = new Blob(content1, { type: 'text/html' });
 
-      // @--创建FileReader
-      // FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，
-      // 使用 File 或 Blob 对象指定要读取的文件或数据。
-      let reader = new FileReader();
-      reader.addEventListener('load', function () { // 监听load方法
-        console.log(reader.result);
-      });
-      // FileReader可以将文件读取成三种格式的数据
-      // 1.将 Blob 或者 File 对象转根据特殊的编码格式转化为内容(字符串形式), 默认编码是 utf-8
-      // reader.readAsText(blob1, 'utf-8');
-      // 2. 读取完成后，result属性将包含一个 ArrayBuffer 对象表示所读取的文件的数据
-      // reader.readAsArrayBuffer(blob);
-      // 3. 读取完成后，result属性将包含一个 data:URL 格式的字符串(base64编码)
-      reader.readAsDataURL(blob);
+    // @--创建FileReader：使用 File 或 Blob 对象指定要读取的文件或数据。
+    // FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，
+    // 使用 File 或 Blob 对象指定要读取的文件或数据。
+    let reader = new FileReader();
+    reader.addEventListener('load', function () { // 监听load方法
+      console.log(reader.result);
+    });
+    // FileReader可以将文件读取成三种格式的数据，这时的操作是启动哪个方法来读取
+    // 1.将 Blob 或者 File 对象转根据特殊的编码格式转化为内容(字符串形式), 默认编码是 utf-8
+    // reader.readAsText(blob1, 'utf-8');
+    // 2. 读取完成后，result属性将包含一个 ArrayBuffer 对象表示所读取的文件的数据
+    // reader.readAsArrayBuffer(blob);
+    // 3. 读取完成后，result属性将包含一个 data:URL 格式的字符串(base64编码)，base64码可以直接传给img标签的src显示图片
+    // reader.readAsDataURL(blob);
 
-      // 读取newBlob对象
-      let reader1 = new FileReader();
-      reader1.addEventListener('load', function () {
-        console.log(reader1.result);
-      });
-      reader1.readAsText(newBlob);
+    // 读取newBlob对象
+    let reader1 = new FileReader();
+    reader1.addEventListener('load', function () {
+      console.log(reader1.result);
+    });
+    reader1.readAsText(newBlob);
+  }
+
+  function initFile() {
+    // @--创建File对象
+    // new File(array, filename [, options:{ type: 'MIME', lastModified: Date.now()}])
+    // 第一个参数：必需，一个数组，用来存储File对象的内容，数组元素可以是二进制对象（Blob对象）或者字符串。
+    // 第二个参数：必需，规定文件的名字。
+    // 第三个参数： type：字符串，规定File内容的MIME 类型。 lastModified：一个时间戳，规定File文件上次修改的时间，默认值是Date.now()。
+    let file = new File(['测试file对象'], 'preview.jpg', { type: 'text/plain', });
+    console.log(file);
+    let reader = new FileReader();
+    reader.addEventListener('load', () => {
+      console.log(reader.result);
+    });
+    reader.readAsText(file);
+  }
+
+  function initFormData() {
+    // FormData 接口提供了一种表示表单数据的键值对的构造方式，经过它的数据可以使用 XMLHttpRequest.send() 方法送出
+    // @--创建FormData对象
+    let form = new FormData();
+    let file = new File(['测试file对象'], 'preview.jpg', { type: 'text/plain', });
+    form.append('file', file );
+    form.append('name', 'yingxu');
+    console.log(form);
+    console.log(form.get('name'));
+    console.log(form.set('code', '123456')); // 无code属性，则新建
+    console.log(form.entries());
+    for(var pair of form.entries()) {
+      console.log(pair);
+      console.log(pair[0]+ ', '+ pair[1]);
     }
+    console.log(form.values('123456'));
+    console.log(form.has('code1'));
+    console.log(form.keys());
 
-    window.onload = function () {
-      init();
-      let bb = [{"x":"设备1","y":120,"s":1},
-        {"x":"设备2","y":130,"s":1},
-        {"x":"设备3","y":180,"s":1},
-        {"x":"设备4","y":100,"s":1},
-        {"x":"设备5","y":80,"s":1},
-        {"x":"设备6","y":200,"s":1},
-        {"x":"设备7","y":170,"s":1},
-        {"x":"设备8","y":150,"s":1},
-        {"x":"设备9","y":60,"s":1},
-        {"x":"设备10","y":140,"s":1},
-        {"x":"设备11","y":190,"s":1},
-        {"x":"设备12","y":210,"s":1},
-        {"x":"设备13","y":120,"s":1},
-        {"x":"设备14","y":160,"s":1}
-      ];
-      console.log(aa(bb));
-    }
+    console.log(form.delete('name'));
+    console.log(form.entries());
 
-    let aa = (arr)=>{
-      console.log(arr)
-      let a=arr[0].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a1=arr[1].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a2=arr[2].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a3=arr[3].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a4=arr[4].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a5=arr[5].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a6=arr[6].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a7=arr[7].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a8=arr[8].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a9=arr[9].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a10=arr[10].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a11=arr[11].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a12=arr[12].y+parseInt(Math.random()*(10-1+1)+1,10);
-      let a13=arr[13].y+parseInt(Math.random()*(10-1+1)+1,10);
-      return [{"x":"设备1","y":a,"s":1},{"x":"设备2","y":a1,"s":1},{"x":"设备3","y":a2,"s":1},{"x":"设备4","y":a3,"s":1},{"x":"设备5","y":a4,"s":1},
-        {"x":"设备6","y":a5,"s":1},{"x":"设备7","y":a6,"s":1},{"x":"设备8","y":a7,"s":1},{"x":"设备9","y":a8,"s":1},{"x":"设备10","y":a9,"s":1},
-        {"x":"设备11","y":a10,"s":1},{"x":"设备12","y":a11,"s":1},{"x":"设备13","y":a12,"s":1},{"x":"设备14","y":a13,"s":1}
-      ]
-    }
+  }
+
+  window.onload = function () {
+    // initBlob();
+    // initFile();
+    initFormData();
+  }
+
 
 </script>
 </html>
