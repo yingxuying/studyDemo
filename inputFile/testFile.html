@@ -9,11 +9,11 @@
 
 </style>
 <body>
-
+<input type="file" id="file" onchange="initFileUpload" />
 </body>
 <script>
   /**
-   * 创建Blob对象，使用FileReader对象读取Blob对象的数据
+   * 1.创建Blob对象，使用FileReader对象读取Blob对象的数据
    */
   function initBlob() {
     // Blob的存在，允许js直接操作二进制数据。Blob对象是一个包含有只读原始数据的类文件对象。Blob对象并不一定是基于JS中的原始形式
@@ -55,6 +55,9 @@
     reader1.readAsText(newBlob);
   }
 
+  /**
+   * 2.创建File对象
+   */
   function initFile() {
     // @--创建File对象
     // new File(array, filename [, options:{ type: 'MIME', lastModified: Date.now()}])
@@ -70,6 +73,9 @@
     reader.readAsText(file);
   }
 
+  /**
+   * 3.创建FormData对象
+   */
   function initFormData() {
     // FormData 接口提供了一种表示表单数据的键值对的构造方式，经过它的数据可以使用 XMLHttpRequest.send() 方法送出
     // @--创建FormData对象
@@ -94,10 +100,30 @@
 
   }
 
+  /**
+   * 4.FileUpload对象：这个不是js对象，是html对象
+   * html对象只能依靠html标签创建，创建的对象的属性有的可以写入，有的只能读取
+   * html对象可以依靠事件触发时的event.target获取，event.target获取的就是html对象
+   * 如在 HTML 文档中 <a> 标签每出现一次，就会创建 Anchor 对象。
+   */
+  function initFileUpload() { // 给type=file标签添加的onchange事件未起作用
+    // 在 HTML 文档中 <input type="file"> 标签每出现一次，一个 FileUpload 对象就会被创建。
+    // 该元素的 value 属性保存了用户指定的文件的名称，但是当包含一个 file-upload 元素的表单被提交的时候，浏览器会向服务器发送选中的文件的内容而不仅仅是发送文件名。
+    // file-upload 元素不允许 HTML 作者或 JavaScript 程序员指定一个默认的文件名。对于此类元素来说，value 属性是只读的
+    let ele = document.getElementById('file');
+    console.log(ele);
+    ele.addEventListener('change', (event) => {
+      console.log(event);
+      console.log(event.target.value)
+      let ele = document.getElementById('file');
+      console.log(ele.value)
+    })
+  }
   window.onload = function () {
     // initBlob();
     // initFile();
-    initFormData();
+    // initFormData();
+    initFileUpload();
   }
 
 
