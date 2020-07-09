@@ -1,0 +1,240 @@
+<!DOCTYPE html> <!--声明文档类型是html，必须位于<html>标签之前-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<base>标签必须位于head元素的内部-->
+    <!--<base href="https://www.baidu.com/" />-->
+    <base target="_blank"/>
+    <!--只有IE支持basefont标签-->
+    <basefont>
+</head>
+<body>
+<h1>以下标签的属性都是可以被HTML5支持的</h1>
+
+<!--
+1. 如果下载的是浏览器可以解析的文件，如txt,png等，浏览器就会采取预览模式，所以肯定不会出现下载框
+2. download：将下载的文件名变成b.csv下载
+3. target: _blank,_parent,_self,_top,framename。规定在何处打开链接文档。
+4. type: MIME类型，规定被链接文档的MIME类型
+5. HTML DOM对象，每出现一个<a>标签，就会创建一个Anchor对象，js通过设置Anchor对象的值来设置<a>标签的属性值。
+-->
+<a name="a1" href="http://oss.iios.com.cn/attachment/be0de1c8-b14e-454b-903a-39fdd9723075.csv" target="_blank"  download="b">下载csv文件</a>
+<a name="a2" href="https://www.baidu.com/" target="_blank"  download="b">百度一下</a>
+<a href="#a1">跳到名称为a1的锚点</a>
+<a href="mailto:someone@microsoft.com?subject=Hello%20again">发送简单邮件</a>
+
+<!--
+1. 每种html标签都有自带的样式。要和标签属性配合使用。html中，标签更多是语义化了，使代码可读性高。
+2. 如看到<abbr>标签就马上知道里面是缩写。
+3. <acronym>在h5中不支持，使用<abbr>
+-->
+<abbr title="徐莹">XY</abbr>是我名字是我缩写。
+<acronym title="徐莹">XY</acronym>是我名字是我缩写。
+
+<!--
+1. 定义文档或者文章的作者/拥有者的信息，并不仅限于该文档。可以是引用文档的作者信息等。
+-->
+<address>文章版权归YX所有，有需要联系QQ 12345678</address>
+
+<!--
+1. H5中不支持<applet>标签。使用<object>代替
+2. <applet>一个嵌入的 Java applet（小程序）
+-->
+<applet></applet>
+<object style="border:1px solid red" height="100" width="100">
+    <param name="test1" value="1">
+    <param name="test2" value="5">
+    <param name="test3" value="5">
+</object>
+
+<!--
+<area>标签必须嵌套在<map>标签中
+-->
+<!--<img src="http://oss.iios.com.cn/attachment/e97b36d5-d760-4b92-a209-269e0058b6f4.jpg" usemap="#myMap">-->
+<!--<map name="myMap" id="myMap">-->
+    <!--<area shape="circle" coords="" href="https://www.baidu.com/" alt="area1"/>-->
+<!--</map>-->
+
+<!--
+1. article元素代表文档、页面或应用程序中独立的、完整的、可以独自被外部引用的内容。
+它可以是一篇博客或报刊中的文章、一篇论坛帖子、一段用户评论或独立的插件，或其他任何独立的内容。除了内容部分，一个article元素通常有它自己的标题（一般放在一个header元素里面），有时还有自己的脚注。
+2. div无任何语义，仅仅用作样式化或者脚本化的标签，对于一段主题性的内容，则就适用section，而假如这段内容可以脱离上下文，作为完整的独立存在的一段内容，则就适用 article。
+3. section用作一段有专题性的内容，一般在它里面会带有标题。 section典型的应用场景应该是文章的章节、标签对话框中的标签页、或者论文中有编号的部分。
+section元素用于对网站或应用程序中页面上的内容进行分块，section元素的作用是对页面上的内容进行分块，或者说对文章进行分段；一个section元素通常由内容及其标题组成，通常不推荐为那些没有标题的内容使用section元素。
+4. 不要将section元素用作设置样式的页面容器，那是div元素的工作。
+-->
+<article>
+    <header>
+        <h2>h5标签</h2>
+<!--
+        <time>标签的两个属性无任何样式，该标签只表达语义，让百度和谷歌的蜘蛛能够理解你这个网页的意思
+        datetime属性不写默认是标签里的内容，写了就是具体时间，无样式。
+        pubdate是发布时间，无样式。
+-->
+        <p>发表时间<time pubdate="" datetime="">2019/07/03</time></p>
+    </header>
+    <p>文章的内容</p>
+    <section>
+        <h3>评论</h3>
+        <article>
+            <header>
+                <h4>发表者：莲蓉</h4>
+                <p>发表时间<time pubdate="" datetime="">2019/07/03 11:41:44</time></p>
+            </header>
+            <p>文章写的很好，赞一个！</p>
+        </article>
+    </section>
+</article>
+<!--
+1. <aside>被包含在article元素中作为主要内容的附属信息部分，其中的内容可以是与当前文章有关的相关资料、名次解释，等等。
+2. 在article元素之外使用作为页面或站点全局的附属信息部分。最典型的是侧边栏，其中的内容可以使友情链接，博客中的其它文章列表、广告单元等。
+-->
+<aside>
+    <h4></h4>
+</aside>
+
+<!--
+ 如果出现preload属性，则音频在页面加载时进行加载，并预备播放。如果使用 "autoplay"，则忽略该属性。
+-->
+<audio src="" autoplay="autoplay" controls="controls" loop="loop" muted="muted" preload="auto"></audio>
+
+<!--
+1. 应该使用 <h1> - <h6> 来表示标题，使用 <em> 标签来表示强调的文本，应该使用 <strong> 标签来表示重要文本，
+应该使用 <mark> 标签来表示标注的/突出显示的文本。
+2.
+-->
+<b>加粗</b>
+<strong>重要文本，加粗，但strong标签含有语义，比em更强烈</strong>
+<em>强调文本，样式斜体</em>
+<mark>标注，突出显示的文本，字体加背景色</mark>
+<dfn>定义一个项目</dfn>
+<code>定义计算机代码文本</code>
+<samp>定义样本文本</samp>
+<kbd>定义键盘文本，表示文本是是从键盘上键入的。</kbd>
+<var>定义变量。可以将var标签与pre和code标签配合使用</var>
+<cite>定义引用。对参考文献的引用</cite>
+
+<big>放大字体</big>
+<i>斜体</i>
+<small>小字体</small>
+标签1<sub>下标</sub>
+标签2<sup>上标</sup>
+
+<bdi dir="rtl">文本方向，不支持</bdi>
+<bdo dir="rtl">文字的方向，支持</bdo>
+<blockquote cite="引用来源">标记长的块引用，之间的文本会从常规文本中分离出来，经常会在左右两边进行缩进</blockquote>
+<q>标记短的引用</q>
+<!--<br> 标签的 clear 属性只对这些左对齐或右对齐的图像或表格起作用。-->
+<br clear="right" />
+<button name="按钮" value="值" autofocus="autofocus" disabled="disabled"  type="button">button按钮</button>
+
+<canvas></canvas>
+
+<!--
+caption 标签必须紧随 table 标签之后。您只能对每个表格定义一个标题。通常这个标题会被居中于表格之上。
+-->
+<table>
+    <caption align="left">表格标题</caption>
+    <!--只能在 table 或 colgroup 元素中使用 <col> 标签。<col> 标签为表格中一个或多个列定义属性值。-->
+    <!--<col align="left"/>-->
+    <!--<col align="right"/>-->
+
+    <!--<colgroup> 标签只能在 table 元素中使用。 标签用于对表格中的列进行组合，以便对其进行格式化。-->
+    <colgroup span="2" align="left"></colgroup>
+    <colgroup align="right" style="color: purple;"></colgroup>
+    <tr>
+        <th>姓名</th>、
+        <th>学号</th>
+    </tr>
+    <tr>
+        <td>john</td>
+        <td>11111111</td>
+    </tr>
+</table>
+
+<center></center>
+<!--没有浏览器支持 <command> 标签。-->
+<command></command>
+<!--目前只有 Chrome 和 Safari 6 支持 <details> 标签。open属性定义details是否可见-->
+<details open="true">
+    <!--"summary" 元素应该是 "details" 元素的第一个子元素。是details的标题。与 <details> 标签一起使用。H5新标签-->
+    <summary>详情</summary>
+    <p>啊啊啊</p>
+</details>
+<!--目前只有 Chrome 和 Safari 6 支持 <dialog> 标签。H5新标签-->
+<dialog open="open">打开的对话框</dialog>
+<dir></dir>
+<div></div>
+
+<!--
+1. <dl> 标签定义了定义列表。<dt>列表中的项目。<dd>描述列表中的项目
+2.
+-->
+<dl>
+    <dt>计算机</dt>
+    <dd>计算机是电脑</dd>
+    <dt>显示屏</dt>
+    <dd>显示屏是显示画面的</dd>
+</dl>
+
+<!--
+1. embed是针对非IE的浏览器的媒体播放器
+2. object标签一般是在IE中用的。非IE很少支持object。
+3. 所以object与embed同时出现，为的就是兼容不同的浏览器。
+4. video是html5出的一种新标准，但并不是所有的浏览器都支持。
+5. video虽然号称可以支持三种媒体类型，但常用的只有mp4。
+-->
+<!--<object data="http://www.runoob.com/try/demo_source/movie.mp4">-->
+    <!--<embed src="http://www.runoob.com/try/demo_source/movie.mp4" width="200" height="150" >-->
+<!--</object>-->
+<!--<object data="../static/1-1导学.mp4">-->
+    <!--<param name="autoplay" value="false">-->
+    <!--<embed src="../static/1-1导学.mp4"/>-->
+<!--</object>-->
+<!--<embed width="300" height="300" src="../static/1-1导学.mp4"/>-->
+
+<!--<video  width="320" height="240" controls loop>-->
+    <!--<source src="../static/1-1导学.mp4" type="video/mp4">-->
+<!--</video>-->
+
+
+<!--
+1. <fieldset> 标签内时，浏览器会以特殊方式来显示它们，它们可能有特殊的边界、3D 效果
+2. disabled属性禁用的是fieldset里的表单元素
+-->
+<fieldset style="color: red;border: 1px solid blue;" disabled>
+    <!--<legend> 标签为 fieldset 元素定义标题。-->
+    <legend style="text-align: center;padding: 0 20px;">标题</legend>
+    <p>欢迎欢迎，热烈欢迎！</p>
+</fieldset>
+
+<!-- H5新标签
+<figure> 标签规定独立的流内容（图像、图表、照片、代码等等）。figure 元素的内容应该与主内容相关，但如果被删除，则不应对文档流产生影响。
+-->
+<figure style="border: 1px solid red;text-align: center;">
+    <figcaption style="text-align: center">标题</figcaption>
+    <img style="text-align: center" src="../static/cat.jpg">
+    <figcaption style="text-align: center">添加自定义内容</figcaption>
+</figure>
+
+<font></font>
+
+<!--
+1. <footer> 标签定义文档或节的页脚。
+2. <footer> 元素应当含有其包含元素的信息。
+3. 页脚通常包含文档的作者、版权信息、使用条款链接、联系信息等等。
+-->
+<footer>
+    <p>Posted by: W3School</p>
+</footer>
+
+<form></form>
+
+<frameset>
+    <frame>
+</frameset>
+
+<h1>h1-h6</h1>
+</body>
+</html>
